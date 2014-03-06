@@ -33,6 +33,7 @@ version, RedHat provides the devtoolset. In this example code the CentOS version
 On RHEL 7.0 Beta there are no such problems. EasySTOra builds out-of-the-box.
 
 *Ubuntu:*  
+
 	sudo apt-get install curl libcurl4-openssl-dev
 
 *Windows:*  
