@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//NL" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Easy to Oracle - Free Open Source Data Integration</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=8" />
+  <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/text.css"  type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" />
+</head>
+
+<body>
+
+  <div class="container_24">
+
+  <div class="titlebar1">Easy to Oracle - Free open source data integration</div>
+
+  <div class="main">
+
+  <div class="clear"></div>
+
+  <div class="content">
+
+  <div class="rightcol">
+
+      <table class="topics">
+        <tbody>
+        <tr>
+          <td><a href="eto-index.html">Easy .. to Oracle</a></td>
+          <td><a href="eto-technical-overview.html">Technical overview</a></td>
+          <td><a class="topicsel" href="eto-comparison.html">Comparison</a></td>
+          <td><a href="eto-requirements.html">Requirements</a></td>
+          <td><a href="eto-features-futures.html">Features and futures</a></td>
+        </tr>
+        <tr>
+          <td><a href="eto-usage.html">Usage</a></td>
+          <td><a href="eto-screenshots.html">Screenshots</a></td>
+          <td><a href="eto-licenses.html">Licenses</a></td>
+          <td><a href="eto-links.html">Links</a></td>
+          <td><a href="eto-faq.html">FAQ</a></td>
+        </tr>
+        </tbody>
+      </table>
+
+
+
+      <span class="kop4">Easy ... To Oracle - Comparison of data-integration methods<br /></span>
+<br />
+The are many ways to import data from a non-Oracle platform into an Oracle database. All with their
+advantages and disadvantages. Enough disadvantages to justify creating another piece of software to
+do the same job.<br />
+<br />
+I can think of the following ways to import data into Oracle:<br />
+&bull;&nbsp;Write to a flatfile, import flatfile<br />
+&bull;&nbsp;Use an ODBC driver and Oracle Heterogenous Services<br />
+&bull;&nbsp;Buy an Oracle Gateway module<br />
+&bull;&nbsp;Use specialized ETL software (that may or may not use ODBC/JDBC)<br />
+&bull;&nbsp;And now you can also use Easy To Oracle !<br />
+<br />
+Note that I have not included stand-alone utilities for (one time) migration of data.
+<br /><br /><br />
+<span class="kop4">Advantages and disadvantages</span><br />
+<br />
+<table class="tblgeneric">
+  <tbody>
+    <col style="width:16%;" />
+    <col style="width:42%;" />
+    <col style="width:42%;" />
+    <tr>
+      <td><b>Method</b></td>
+      <td><b>Advantages</b></td>
+      <td><b>Disadvantages</b></td>
+    </tr>
+    <tr>
+      <td>Flatfiles</td>
+      <td>Cheap (free)<br />Straightforward implementation</td>
+      <td>A lot of work to setup and maintain<br />Usually scripted and scheduled, so no real-time possibilities<br />Slow<br />Extra storage required<br />No CLOB/BLOB support</td>
+    </tr>
+    <tr>
+      <td>ODBC</td>
+      <td>Wide range of platforms supported<br />Two way communication possible<br />Relatively easy to setup<br />Very easy to use</td>
+      <td>Often you will have to buy a suitable driver<br />32/64 bit issues may exist<br />Oracle ODBC gateway not available in all database versions<br />Not the highest performance<br />No MS Excel</td>
+    </tr>
+    <tr>
+      <td>Oracle Gateway</td>
+      <td>Technically very advanced, especially the fact that the Oracle query optimizer works on remote tables<br />Tight integration into Oracle<br />Fast<br />Very easy to use</td>
+      <td>Costly. In practice only affordable for large corporations.<br />Limited set of database platforms supported<br />No MS Excel</td>
+    </tr>
+    <tr>
+      <td>ETL Software</td>
+      <td>Data integration is core functionality of ETL software, so it should be quite good at it<br />Can be fast</td>
+      <td>Separate product (installation, maintenance and skills required)<br />May need additional hardware<br />Often uses ODBC (with same disadvantages)<br />May not be fastest (implementation and usage) method<br />No MS Excel</td>
+    </tr>
+    <tr>
+      <td><b>Easy To Oracle</b></td>
+      <td>Cheap (free)<br />Fast<br />Tight integration into Oracle / Database-centric<br />Relatively easy to setup<br />Very easy to use<br />Read from Excel without csv export !<br />PL/SQL API available</td>
+      <td>Currently limited set of supported database platforms<br />No CLOB/BLOB support (yet)<br />DBA should follow security recommendations</td>
+    </tr>
+  </tbody>
+</table>
+<br /><hr />
+Back to <a href="eto-index.html">ETO Home</a>.
+<br /><br />Copyright 2011-2014 Ivo Herweijer
+  </div>
+
+  </div>
+
+  </div>
+
+  </div> <!-- container_24 -->
+
+</body>
+</html>

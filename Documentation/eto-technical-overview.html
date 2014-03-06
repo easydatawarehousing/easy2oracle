@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//NL" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Easy to Oracle - Free Open Source Data Integration</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=8" />
+  <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/text.css"  type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" />
+</head>
+
+<body>
+
+  <div class="container_24">
+
+  <div class="titlebar1">Easy to Oracle - Free open source data integration</div>
+
+  <div class="main">
+
+  <div class="clear"></div>
+
+  <div class="content">
+
+  <div class="rightcol">
+
+      <table class="topics">
+        <tbody>
+        <tr>
+          <td><a href="eto-index.html">Easy .. to Oracle</a></td>
+          <td><a class="topicsel" href="eto-technical-overview.html">Technical overview</a></td>
+          <td><a href="eto-comparison.html">Comparison</a></td>
+          <td><a href="eto-requirements.html">Requirements</a></td>
+          <td><a href="eto-features-futures.html">Features and futures</a></td>
+        </tr>
+        <tr>
+          <td><a href="eto-usage.html">Usage</a></td>
+          <td><a href="eto-screenshots.html">Screenshots</a></td>
+          <td><a href="eto-licenses.html">Licenses</a></td>
+          <td><a href="eto-links.html">Links</a></td>
+          <td><a href="eto-faq.html">FAQ</a></td>
+        </tr>
+        </tbody>
+      </table>
+
+
+
+      <span class="kop4">Easy ... To Oracle - Technical overview<br /></span>
+<br />
+Easy To Oracle (ETO) is a small application that sits between the Oracle database and a remote
+database. In order to reduce the number of dependancies there is one executable for each remote dbms
+platform. The ETO executable takes one parameter: the name of an ini file containing all the
+necessary information to extract data from the remote database. Like server name, server port, user,
+password and of course the source table.<br /><br />
+The ETO executable is called by the Oracle database when an external table is accessed that uses the
+preprocessor feature (available since Oracle 10.2.0.5). Oracle passes the name of the ini file, where
+you would normally expect to see an input file. ETO than opens a connection to the remote database
+and reads the specified table. ETO uses the native communication protocol for that database.
+For example to access Microsoft SQL Server the TDP protocol is used.<br /><br />
+Data returned from the remote database is converted to text format by ETO. ETO
+can cache one or more records from the remote database before writing this data to the standard
+output stream (stdout). The Oracle database is listening for data arriving on this stream and
+passes it to the external table.
+<br />
+Any runtime errors (for example the source table does not exist) are sent to a logfile.<br />
+For more information on the preprocessor facility see chapter 14 of the Oracle Database Utilities Guide (E16536-05).
+<br /><br />
+<img src="images/eto_overview_1.png" alt="ETO Technical overview - data transfer" title="ETO Technical overview - data transfer" />
+<br /><br /><br />
+<b>How to create external tables</b><br />
+<br />
+It would be quite tedious to create external table definitions manually. ETO is accompanied
+by a PL/SQL package to automate this task.<br />
+<br />
+When an Oracle user wants to access data from a remote database, the package <i>sys.utl_eto</i> can be
+used. First a connection to a remote database can be defined with this package. This stores parameters
+like server name, server port, user and password<br />
+After this step the function <i>eto_create_table</i> may be called, passing the names of the source- and
+the target table. The eto_create_table function now writes an ini file to the filesystem and
+creates an external table to read the "describe" information of the remote table.<br />
+On opening this table the ETO executable does it's work and returns the fieldnames and -types for
+the requested remote table. The eto_create_table function now has enough information to construct
+the target external table. The user can now use this external table like any other Oracle table.<br />
+Many more options are available to finetune and automate this process.
+<br /><br />
+<img src="images/eto_overview_2.png" alt="ETO Technical overview - Create external table" title="ETO Technical overview - Create external table" />
+<br /><hr />
+Back to <a href="eto-index.html">ETO Home</a>.
+<br /><br />Copyright 2011-2014 Ivo Herweijer
+  </div>
+
+  </div>
+
+  </div>
+
+  </div> <!-- container_24 -->
+
+</body>
+</html>

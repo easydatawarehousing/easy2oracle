@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//NL" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Easy to Oracle - Free Open Source Data Integration</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=8" />
+  <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/text.css"  type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" />
+</head>
+
+<body>
+
+  <div class="container_24">
+
+  <div class="titlebar1">Easy to Oracle - Free open source data integration</div>
+
+  <div class="main">
+
+  <div class="clear"></div>
+
+  <div class="content">
+
+  <div class="rightcol">
+
+      <table class="topics">
+        <tbody>
+        <tr>
+          <td><a href="eto-index.html">Easy .. to Oracle</a></td>
+          <td><a href="eto-technical-overview.html">Technical overview</a></td>
+          <td><a href="eto-comparison.html">Comparison</a></td>
+          <td><a href="eto-requirements.html">Requirements</a></td>
+          <td><a href="eto-features-futures.html">Features and futures</a></td>
+        </tr>
+        <tr>
+          <td><a href="eto-usage.html">Usage</a></td>
+          <td><a href="eto-screenshots.html">Screenshots</a></td>
+          <td><a href="eto-licenses.html">Licenses</a></td>
+          <td><a href="eto-links.html">Links</a></td>
+          <td><a class="topicsel" href="eto-faq.html">FAQ</a></td>
+        </tr>
+        </tbody>
+      </table>
+
+
+
+      <span class="kop4">Easy ... To Oracle - FAQ<br /></span>
+<a href="#1">1. Why was Easy To Oracle created ?</a><br />
+<br />
+<a href="#2">2. When was Easy To Oracle created ?</a><br />
+<br />
+<a href="#3">3. When will .rpm and .deb installers become available ?</a><br />
+<br />
+<a href="#4">4. Why is ETO dual licensed ?</a><br />
+<br />
+<a href="#5">5. Is there a subversion or cvs server ?</a><br />
+<br />
+<a href="#6">6. Why is the spreadsheetcomponent now closed source ?</a><br />
+<br />
+<a href="#7">7. Characterset conversion does not seem to work !</a><br />
+<br />
+<a href="#8">8. Can I use ETO on an Oracle 10g database ?</a><br />
+<br />
+<a href="#9">9. My query hangs !</a><br />
+<br />
+<a href="#10">10. What does 'extended varchar length of Oracle 12c is partially supported' mean ?</a><br />
+<br />
+<hr />
+<br />
+<a name="1"></a><strong>1. Why was Easy To Oracle created ?</strong><br />
+The need for data-integration is ever present. There are a number of ways to handle data-integration, but all have some disadvantages (too expensive, too limited, too slow, too complicated). That is why ETO was created.<br />
+<br />
+An article in Oracle Magazine by Arup Nanda describing the new preprocessor facility showed the way forward how to implement ETO.<br />
+<br />
+<a name="2"></a><strong>2. When was Easy To Oracle created ?</strong><br />
+First development and release: may - july 2011.<br />
+<br />
+<a name="3"></a><strong>3. When will .rpm and .deb installers become available ?</strong><br />
+This not really my field of expertise. So any help on this subject is much appreciated. This issue is high on the list ...<br />
+<br />
+<a name="4"></a><strong>4. Why is ETO dual licensed ?</strong><br />
+Mainly because I am a freelance software developer and I would like to earn some money with ETO. Since ETO is a relatively small piece of software and there are other free data-integration tools out there, selling ETO for a fee seemed out of the question.<br />
+<br />
+ETO however can be very useful, so if others want to use ETO commercially I reserve the right to ask for some of the revenues.<br />
+<br />
+<a name="5"></a><strong>5. Is there a subversion or cvs server ?</strong><br />
+Source code was moved to GitHub as of version 2.0.0<br />
+<br />
+<a name="6"></a><strong>6. Why is the spreadsheetcomponent now closed source ?</strong><br />
+When updating ETO to work with the latest versions of OpenOffice (or LibreOffice) I ran into two problems.<br />
+1 - It is difficult to install the sdk with the same version as the default installation of Libre/Open Office on many Linux distributions<br />
+2 - I kept running into segmentation faults when detaching from OpenOffice<br />
+<br />
+Combined with the desire to improve the speed of of the spreadsheet reader I decided to ditch the existing solution. The new version of the spreadsheet reader was created from scratch. Performance is vastly improved (~200 times faster). Reliabilty is also superb, no more segfaults.<br />
+<br />
+But it was was a LOT of work to create and since I am a freelance software developer and I would like to earn some money with ETO, this part of ETO is now a commercial package.<br />
+<br />
+<a name="7"></a><strong>7. Characterset conversion does not seem to work</strong><br />
+Sometimes when specifying the correct characterset, unicode characters do not appear as they should. For instance an 'é' shows up as an 'e'.<br />
+<br />
+This is actually evidence that characterset conversion does work ! If it didn't work the character would show up as question mark. Check that the tool that you are using to access the Oracle database supports unicode. If it doesn't, Oracle automatically translates the unicode character to the nearest ascii character for you.<br />
+<br />
+<a name="8"></a><strong>8. Can I use ETO on an Oracle 10g database ?</strong><br />
+The preprocessor feature (first introduced in 11.2) was backported to 10g. You will need to upgrade to 10.2.0.5 or newer.<br />
+<br />
+<a name="9"></a><strong>9. My query hangs !</strong><br />
+This should only happen on Windows platform. When examining the problem you will see 'external table read wait' events. This is due to a bug (?) in Oracle. The database does not recognize record delimiters. So instead of emptying the read buffer when a record delimiter is reached it keeps on reading.<br />
+<br />
+The solution to this problem is adding a sufficiently large <strong><em>READSIZE</em></strong> parameter to the external table definition. It should be large enough to store the data for the entire table or worksheet !<br />
+<br />
+This parameter can easily be set using the <em>utl_eto</em> 'Eto_par_readsize' parameter. You just have to figure out correct value: as small as possible but large enough to accomodate the entire worksheet. I have succesfully used values as large as 20Mb.<br />
+<br />
+<a name="10"></a><strong>10. What does 'extended varchar length of Oracle 12c is partially supported' mean ?</strong><br />
+In Oracle 12c the database can be set up to use extended strings (maximum length is then 32767 instead of 4000). The ETO executables support an arbitrary maximum length of string fields. You can set parameter 'maxvarcharlen' using: pOtherParameters => 'maxvarcharlen=32000;'<br />
+ETO will then pass longer strings to Oracle. However, the generated external table definitions still use the 4000 character limit. You would need to change the external table definition manually. Reason for this is that I could not find the proper way to determine if the database is in extended mode (yet).<br />
+<br /><hr />
+Back to <a href="eto-index.html">ETO Home</a>.
+<br /><br />Copyright 2011-2014 Ivo Herweijer
+  </div>
+
+  </div>
+
+  </div>
+
+  </div> <!-- container_24 -->
+
+</body>
+</html>

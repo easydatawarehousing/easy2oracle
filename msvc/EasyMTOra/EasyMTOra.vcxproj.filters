@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{92b42d81-7641-4406-b7e6-7212dc4d4919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{b341f3b9-9cc4-4fb0-af16-90dbe72dea36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{9c6cf947-3281-4faf-8493-b8f899726d1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\include">
+      <UniqueIdentifier>{4f49b70f-654b-4f16-a439-a93f83200e8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\src">
+      <UniqueIdentifier>{18a37ecc-1ff0-4248-b3bd-cab2bb814128}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\ETO_Common\include\dictionary.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_dbs.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_log.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_util.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\iniparser.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\ETO_Common\src\dictionary.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_log.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_main.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_util.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\iniparser.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyMTOra\src\eto_dbs.c">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

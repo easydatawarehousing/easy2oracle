@@ -1,0 +1,31 @@
+Easy to Oracle - Free open source data integration
+==================================================
+
+Version 2.0.0 Februari 15, 2014
+-------------------------------
++ Added support for Presto (Hadoop) databases
++ Compiles on Windows
++ Simplified codebase. As much code as possible is now shared
++ Switched to cmake
++ Updated iniparser from version 3.1 to master branch
++ Updated SQLite from version 3.7.12.1 to 3.8.3.1
++ Included sources for FreeTDS (0.91) in this download (only used in Windows)
+- Removed Microsoft Access support
+
+Version 1.1.0 BETA - June 15, 2012
+----------------------------------
++ Changed PL/SQL api for spreadsheet access. Now the same as other database types
++ Some minor bugfixes and features in PL/SQL package
+- Removed OpenOffice support. This is now available in a separate binary release
++ Added support for Jet3 and Jet4 databases, used by Microsoft Access.
+  Library libmdb 0.7rc1 is used. This currently supports Access 97, 2000 and 2003.
++ Updated iniparser from version 3.0 to 3.1
++ Updated SQLite from version 3.7.7.1 to 3.7.12.1
++ Updated FreeTDS to version 0.91
++ Changed MySQL describe query to get slightly better performance on large tables
++ Bugfix: better conversion of fieldnames to Oracle format, i.e. cannot start
+  with a digit or _
+
+Version 1.0.0 BETA - July 27, 2011
+----------------------------------
+This the first public release. Support for SQL Server/Sybase, MySQL, SQLite, MS-Excel

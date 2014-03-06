@@ -1,0 +1,2 @@
+Easy ... To Oracle - MS-Access==============================
+Removed this part from ETO in version 2.0.0 because the current versionof libmdb (0.71) doesn't build easily anymore. Also newer database formats(MS Access 2007+) are not supported.The previous version of ETO (1.1.0) should still work with an earlierversion of libmdb (0.7).Sources available from:-----------------------http://www.easydatawarehousing.com/easy-to-oracle-download/  https://github.com/brianb/mdbtools/releases  

@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyMTOra", "EasyMTOra\EasyMTOra.vcxproj", "{6C89AD52-8003-4466-9EF9-D40C927A660B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyPTOra", "EasyPTOra\EasyPTOra.vcxproj", "{232CA226-328A-4650-A0F0-A0BACAD8680A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasySTOra", "EasySTOra\EasySTOra.vcxproj", "{160D489F-BE96-4EA3-9949-D73CF7E7172B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyTTOra", "EasyTTOra\EasyTTOra.vcxproj", "{B91171E9-6F71-403B-B138-A090B0936F89}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C89AD52-8003-4466-9EF9-D40C927A660B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6C89AD52-8003-4466-9EF9-D40C927A660B}.Debug|Win32.Build.0 = Debug|Win32
+		{6C89AD52-8003-4466-9EF9-D40C927A660B}.Release|Win32.ActiveCfg = Release|Win32
+		{6C89AD52-8003-4466-9EF9-D40C927A660B}.Release|Win32.Build.0 = Release|Win32
+		{232CA226-328A-4650-A0F0-A0BACAD8680A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{232CA226-328A-4650-A0F0-A0BACAD8680A}.Debug|Win32.Build.0 = Debug|Win32
+		{232CA226-328A-4650-A0F0-A0BACAD8680A}.Release|Win32.ActiveCfg = Release|Win32
+		{232CA226-328A-4650-A0F0-A0BACAD8680A}.Release|Win32.Build.0 = Release|Win32
+		{160D489F-BE96-4EA3-9949-D73CF7E7172B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{160D489F-BE96-4EA3-9949-D73CF7E7172B}.Debug|Win32.Build.0 = Debug|Win32
+		{160D489F-BE96-4EA3-9949-D73CF7E7172B}.Release|Win32.ActiveCfg = Release|Win32
+		{160D489F-BE96-4EA3-9949-D73CF7E7172B}.Release|Win32.Build.0 = Release|Win32
+		{B91171E9-6F71-403B-B138-A090B0936F89}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B91171E9-6F71-403B-B138-A090B0936F89}.Debug|Win32.Build.0 = Debug|Win32
+		{B91171E9-6F71-403B-B138-A090B0936F89}.Release|Win32.ActiveCfg = Release|Win32
+		{B91171E9-6F71-403B-B138-A090B0936F89}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

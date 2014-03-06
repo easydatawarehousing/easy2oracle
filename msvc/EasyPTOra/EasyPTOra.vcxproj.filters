@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{6e6e2b3e-4a7d-447e-8688-8650da06d36d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{38981859-3f09-4833-a3bb-8e82f283b132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{600c0212-e8cf-49b6-81ce-941bbd37430c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\include">
+      <UniqueIdentifier>{2744cb3b-603d-4274-a73e-80e72013afdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\src">
+      <UniqueIdentifier>{f490a931-09af-42b9-9ac7-c5715648b189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="prestoclient">
+      <UniqueIdentifier>{fd4dd3e6-be7f-4032-88a5-d7358a96648a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="prestoclient\include">
+      <UniqueIdentifier>{dff4c77c-3987-496b-b38e-ad6bd8f62796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="prestoclient\source">
+      <UniqueIdentifier>{09a922a2-dca9-4344-a829-5b286b23205d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\EasyPTOra\prestoclient\prestoclient.h">
+      <Filter>prestoclient\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyPTOra\prestoclient\prestoclienttypes.h">
+      <Filter>prestoclient\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_log.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\dictionary.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\iniparser.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_util.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_dbs.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\EasyPTOra\prestoclient\prestoclient.c">
+      <Filter>prestoclient\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyPTOra\prestoclient\prestoclientjsonstream.c">
+      <Filter>prestoclient\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyPTOra\prestoclient\prestoclientutils.c">
+      <Filter>prestoclient\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_log.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\dictionary.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\iniparser.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_util.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_main.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyPTOra\src\eto_dbs.c">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

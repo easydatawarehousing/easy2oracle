@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93e665ce-dc4e-4957-a476-f79bc83de32b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{4c8bd853-aa22-4892-a6e9-147292fc1224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FreeTDS">
+      <UniqueIdentifier>{6a871f71-dcc9-44ed-b76e-eb2866915deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FreeTDS\include">
+      <UniqueIdentifier>{1439fb6e-7890-43f7-8e0c-ff31053ebad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FreeTDS\source">
+      <UniqueIdentifier>{5c118c36-fa99-4648-8b90-badf5b1c9979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FreeTDS\source\ctlib">
+      <UniqueIdentifier>{ec356a8d-8153-4541-9253-ecb97dab645d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FreeTDS\source\tds">
+      <UniqueIdentifier>{cdd50174-2fd1-4c05-98ab-bb1dccfb69ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{dcfdcab1-8ae5-48e5-b193-a476fd9fc0d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\include">
+      <UniqueIdentifier>{c6d9a045-7b06-494b-a78b-a546de424d27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\src">
+      <UniqueIdentifier>{9be0a17e-5531-4115-993e-cb5ba40c9e8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FreeTDS\replacements">
+      <UniqueIdentifier>{3d056b63-7120-4169-9d33-d623563a1a50}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tds_sysdep_public.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\cspublic.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\cstypes.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\ctpublic.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\config.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tdsver.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tds.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\replacements.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\sqlfront.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\sybdb.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tds_sysdep_private.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tdsodbc.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\ctlib.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tdsthread.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tdsiconv.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tdsbytes.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\fakepoll.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tdsstring.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\des.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\hmac_md5.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\md4.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\md5.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tdsconvert.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\sqldb.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tdssrv.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\tds_configs.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\bkpublic.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\syberror.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\sybfront.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\freetds_sysconfdir.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\src\tds\num_limits.h">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\src\tds\tds_types.h">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\src\tds\encodings.h">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\src\tds\tds_willconvert.h">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\src\tds\tds_checks.h">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\src\tds\enum_cap.h">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EasyTTOra\freetds\include\replacements\readpassphrase.h">
+      <Filter>FreeTDS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\dictionary.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_dbs.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_log.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\eto_util.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ETO_Common\include\iniparser.h">
+      <Filter>common\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\ptw32_MCS_lock.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\bulk.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\config.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\gssapi.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\mem.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\net.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\query.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\token.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\data.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\challenge.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\login.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\threadsafe.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\convert.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\numeric.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\sspi.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\read.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\util.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\locale.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\log.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\write.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\win_mutex.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\hmac_md5.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\tds_checks.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\vstrbuild.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\getmac.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\md4.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\md5.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\tdsstring.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\des.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\ctlib\cs.c">
+      <Filter>FreeTDS\source\ctlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\ctlib\ct.c">
+      <Filter>FreeTDS\source\ctlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\ctlib\ctutil.c">
+      <Filter>FreeTDS\source\ctlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\ctlib\blk.c">
+      <Filter>FreeTDS\source\ctlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\src\eto_dbs.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\dictionary.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_log.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_main.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\eto_util.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ETO_Common\src\iniparser.c">
+      <Filter>common\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\replacements\asprintf.c">
+      <Filter>FreeTDS\replacements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\replacements\strlcpy.c">
+      <Filter>FreeTDS\replacements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\replacements\strtok_r.c">
+      <Filter>FreeTDS\replacements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\replacements\vasprintf.c">
+      <Filter>FreeTDS\replacements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\replacements\fakepoll.c">
+      <Filter>FreeTDS\replacements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\tds\iconv.c">
+      <Filter>FreeTDS\source\tds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EasyTTOra\freetds\src\replacements\_iconv.c">
+      <Filter>FreeTDS\replacements</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

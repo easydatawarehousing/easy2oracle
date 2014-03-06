@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//NL" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Easy to Oracle - Free Open Source Data Integration</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=8" />
+  <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/text.css"  type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" />
+</head>
+
+<body>
+
+  <div class="container_24">
+
+  <div class="titlebar1">Easy to Oracle - Free open source data integration</div>
+
+  <div class="main">
+
+  <div class="clear"></div>
+
+  <div class="content">
+
+  <div class="rightcol">
+
+      <table class="topics">
+        <tbody>
+        <tr>
+          <td><a href="eto-index.html">Easy .. to Oracle</a></td>
+          <td><a href="eto-technical-overview.html">Technical overview</a></td>
+          <td><a href="eto-comparison.html">Comparison</a></td>
+          <td><a href="eto-requirements.html">Requirements</a></td>
+          <td><a class="topicsel" href="eto-features-futures.html">Features and futures</a></td>
+        </tr>
+        <tr>
+          <td><a href="eto-usage.html">Usage</a></td>
+          <td><a href="eto-screenshots.html">Screenshots</a></td>
+          <td><a href="eto-licenses.html">Licenses</a></td>
+          <td><a href="eto-links.html">Links</a></td>
+          <td><a href="eto-faq.html">FAQ</a></td>
+        </tr>
+        </tbody>
+      </table>
+
+
+
+      <span class="kop4">Easy ... To Oracle - Features and futures<br /></span>
+<br />
+<span class="kop4">Features<br /></span>
+Easy To Oracle (ETO) currently handles these types of datasources:<br />
+&bull;&nbsp;Microsft SQL Server (TDS protocol)<br />
+&bull;&nbsp;Sybase (TDS protocol)<br />
+&bull;&nbsp;MySQL 5.x<br />
+&bull;&nbsp;Microsoft Excel (all versions)<br />
+&bull;&nbsp;OpenOffice/LibreOffice (all versions)<br />
+&bull;&nbsp;SQLite 3.x<br />
+&bull;&nbsp;Microsoft Access 97 - 2003 (discontinued in ETO 2.0 version)<br />
+&bull;&nbsp;Presto (Hadoop)<br />
+<br />
+&bull;&nbsp;All datatypes are handled except: (var)binary, lob's, image. Fields with these datatypes are automatically filtered out by PL/SQL package.<br />
+Other fieldtypes are converted to corresponding Oracle types. Mostly to varchar2, number and date. User- defined conversions are possible, as long as they are valid for external tables. Character fields with content longer than 4,000 bytes are cut of at that length (extended varchar length of Oracle 12c is partially supported). Character set conversions are carried out by Oracle.<br />
+<br />
+&bull;&nbsp;ETO will accept the name of the source table or an SQL statement ( if the source database supports SQL).<br />
+<br />
+&bull;&nbsp;ETO can cache an arbitrary number of records in memory (user settable). On a multi-core processor it is possible to divide the workload between ETO and Oracle using this parameter.<br />
+<br />
+&bull;&nbsp;Oracle parallel dataloads (ie. multiple threads that read different parts from one table and combine the results) are not supported.<br />
+Running multiple dataloads at the same time is possible.<br />
+<br />
+With PL/SQL package: UTL_ETO it is possible to:<br />
+&bull;&nbsp;Define datasources<br />
+&bull;&nbsp;Create an external table definition from the name of the source table<br />
+&bull;&nbsp;Create multiple external table definitions at once for several or all tables in a remote database<br />
+<br />
+<span class="kop4">Futures<br /></span>
+ETO is now in it's third release (V2.0.0 - March 2014).<br />
+<br />
+The current wishlist (in order of importance) for additional features:<br />
+&bull;&nbsp;Create .rpm installer<br />
+<br />
+And of course add support for other source database-platforms like:<br />
+&bull;&nbsp;Twitter<br />
+&bull;&nbsp;DB2<br />
+&bull;&nbsp;PostgreSQL<br />
+&bull;&nbsp;BerkelyDB<br />
+&bull;&nbsp;Teradata ?<br />
+&bull;&nbsp;.....<br />
+<br /><hr />
+Back to <a href="eto-index.html">ETO Home</a>.
+<br /><br />Copyright 2011-2014 Ivo Herweijer
+  </div>
+
+  </div>
+
+  </div>
+
+  </div> <!-- container_24 -->
+
+</body>
+</html>

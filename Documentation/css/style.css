@@ -1,0 +1,99 @@
+/* Copyright 2011-2014 Ivo Herweijer */
+body {
+	background:   white url('../images/edbckgrnd.png');
+	min-width:    978px;
+	color:        black;
+}
+
+.container_24 {
+	margin:       0px auto 0px auto;
+	width:        978px;
+	background:   transparent;
+	top:          0px;
+	left:         50%;
+}
+
+.titlebar1 {
+	font-weight:     bold;
+	font-size:       200%;
+}
+
+.kop4 {
+	font-weight:     bold;
+	font-size:       125%;
+}
+
+.content {
+	position:        relative;
+	top:             20px;
+	z-index:         100;
+}
+
+.rightcol {
+	float:           right;
+	width:           971px;
+	padding:         5px;
+	margin-top:      5px;
+	text-decoration: none;
+}
+
+.topics {
+	margin-bottom:   40px;
+}
+
+.topics td {
+	padding-right:   30px;
+	font-size:       80%;
+	font-style:      italic;
+}
+
+.topics td a {
+	text-decoration: none;
+	color:           black;
+}
+
+.topics td a:active, .topics td a:focus, .topics td a:visited {
+	text-decoration: none;
+	outline-style:   none;
+}
+
+.topics .topicsel {
+	font-weight:     bolder;
+	color:           red;
+}
+
+.codeblock {
+	background:      WhiteSmoke;
+	border:          1px solid #151572;
+	padding:         3px;
+	font-family:     monospace;
+	font-size:       85%;
+}
+
+.clst {
+	Margin-left:     15px;
+}
+
+.sup {
+	vertical-align:  super;
+	font-size:       80%;
+}
+
+.clear {
+	clear:      both;
+	display:    block;
+	overflow:   hidden;
+	visibility: hidden;
+	width:      0;
+	height:     0;
+}
+
+.tblgeneric, .tblgeneric td {
+	background:       WhiteSmoke;
+	border:           1px solid #151572;
+	padding:          3px;
+}
+
+.tblgeneric a {
+	color:            #151572;
+}

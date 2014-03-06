@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//NL" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Easy to Oracle - Free Open Source Data Integration</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=8" />
+  <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/text.css"  type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" />
+</head>
+
+<body>
+
+  <div class="container_24">
+
+  <div class="titlebar1">Easy to Oracle - Free open source data integration</div>
+
+  <div class="main">
+
+  <div class="clear"></div>
+
+  <div class="content">
+
+  <div class="rightcol">
+
+      <table class="topics">
+        <tbody>
+        <tr>
+          <td><a href="eto-index.html">Easy .. to Oracle</a></td>
+          <td><a href="eto-technical-overview.html">Technical overview</a></td>
+          <td><a href="eto-comparison.html">Comparison</a></td>
+          <td><a href="eto-requirements.html">Requirements</a></td>
+          <td><a href="eto-features-futures.html">Features and futures</a></td>
+        </tr>
+        <tr>
+          <td><a class="topicsel" href="eto-usage.html">Usage</a></td>
+          <td><a href="eto-screenshots.html">Screenshots</a></td>
+          <td><a href="eto-licenses.html">Licenses</a></td>
+          <td><a href="eto-links.html">Links</a></td>
+          <td><a href="eto-faq.html">FAQ</a></td>
+        </tr>
+        </tbody>
+      </table>
+
+
+
+      <span class="kop4">Easy ... To Oracle - Usage (from a database perspective)<br /></span>
+
+
+
+
+
+This guide walks you through setting up ETO within Oracle and usage of ETO. Most available options are
+explained. See the package header of SYS.UTL_ETO for all available options.<br />
+<br />
+<b>Install package UTL_ETO</b><br />
+Package UTL_ETO is meant to be installed in the SYS schema. This can only be done by a SYSDBA user.
+However it is possible to install UTL_ETO in any schema. Just change the schemanames appropriately.<br />
+Installing can be done using SQL*PLUS or any other database tool like SQL Developer or Toad. CD into the
+directory where you unpacked the ETO source, then cd into subdirectory PLSQL. Open SQL*PLUS,
+connect with sys as sysdba. Type:<br />
+<br />
+<div class="codeblock">
+@install_utl_eto.sql
+</div>
+<br />
+This wil install one table and one package.<br />
+<br />
+<br />
+<b>Setup directories</b><br />
+Add these 3 directories at OS level and on the database. Note that the 'eto-files' directory is only used
+for SQLite, Access and Excel.<br />
+<br />
+Replace 'path_to_dir' with something appropriate for your database (the database must be able to reach these dirctories). Replace 'someuser' with a (list of) username(s) that should be allowed to use ETO.<br />
+<br />
+<div class="codeblock">
+CREATE&nbsp;OR&nbsp;REPLACE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DIRECTORY&nbsp;user_dir_eto_bin&nbsp;AS&nbsp;'/path_to_dir/eto_bin';<br />
+GRANT&nbsp;READ,&nbsp;EXECUTE&nbsp;ON&nbsp;DIRECTORY&nbsp;user_dir_eto_bin&nbsp;TO&nbsp;someuser;<br />
+<br />
+CREATE&nbsp;OR&nbsp;REPLACE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DIRECTORY&nbsp;user_dir_eto_data&nbsp;AS&nbsp;'/path_to_dir/eto_data';<br />
+GRANT&nbsp;READ,&nbsp;WRITE&nbsp;&nbsp;&nbsp;ON&nbsp;DIRECTORY&nbsp;user_dir_eto_data&nbsp;TO&nbsp;someuser;<br />
+<br />
+CREATE&nbsp;OR&nbsp;REPLACE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DIRECTORY&nbsp;user_dir_eto_files&nbsp;AS&nbsp;'/path_to_dir/eto_files';<br />
+GRANT&nbsp;READ,WRITE&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;DIRECTORY&nbsp;user_dir_eto_files&nbsp;TO&nbsp;someuser;
+</div>
+<br />
+In order to maintain a <b>SECURE</b> system:<br />
+1. Don't grant other access rights than these<br />
+2. Do not use the same directory for these 3 dirs<br />
+3. Use appropriate access rights at OS level (same as on database)<br />
+<br /><br />
+<b>Set up parameters</b><br />
+Set up a parameters for connection to a remote database. In this example an SQL Server source database is used.<br />
+<br />
+<div class="codeblock">
+DECLARE<br />
+&nbsp;&nbsp;r&nbsp;&nbsp;&nbsp;number;<br />
+BEGIN<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Create_Database_Connection('MSTEST');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_executable,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EasyTTOra');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_bin_dir,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user_dir_eto_bin');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_data_dir,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user_dir_eto_data');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_db_name,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'servername:port');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_db_user,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_db_pwd,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'password');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_default_charset,&nbsp;'WE8ISO8859P15');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_def_cacherows,&nbsp;&nbsp;&nbsp;'1');<br />
+END;
+</div>
+<br />
+&bull;&nbsp;Eto_par_executable: Set the name of the executable to be used for this connection. Currently
+these values can be used:<br />EasyTTOra (SQL Server and Sybase), EasyMTOra (MySQL), EasySTOra (SQLite), EasyPTOra (Presto)
+and EasyOTOra.sh (Excel/OpenOffice/LibreOffice)<br />
+&bull;&nbsp;Eto_par_bin_dir: the Oracle directory name, pointing to the location where the ETO executables are
+located.<br />
+&bull;&nbsp;Eto_par_data_dir: the Oracle directory name, pointing to the location where ini files can be written to.<br />
+&bull;&nbsp;Eto_par_db_name: Use the servername or server ip address. The tcp port number is optional. Default
+values are: SQL server&nbsp;:&nbsp;1433, MySQL&nbsp;:&nbsp;3306, Presto:&nbsp;8080<br />
+&bull;&nbsp;Eto_par_default_charset: If the remote database uses a multibyte characterset this can be translated by Oracle.
+For SQL server, SQLite and MySQL 'WE8ISO8859P15' works well, for spreadsheets and Presto use 'AL32UTF8'.<br />
+&bull;&nbsp;Eto_par_def_cacherows: Size in number of records to cache in memory by the executable. This is an
+optional value. Default value is&nbsp;1. Usually a low value of 1 or 2 works best.<br />
+You can see the effects of this setting when accessing a large table (to give you enough time) and
+look at cpu usage with a Linux command like 'top'. Best speed is obtained when ETO executable and Oracle consume about equal cpu time.
+<br /><br /><br />
+<b>Create an external table definition</b><br />
+Now you can create your first table with ETO.<br />
+<br />
+<div class="codeblock">
+DECLARE<br />
+&nbsp;&nbsp;r&nbsp;&nbsp;&nbsp;number;<br />
+BEGIN<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_CREATE_TABLE(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pOutputTableName&nbsp;=>&nbsp;'MYSCHEMA.EXT_NORTHWIND_EMPLOYEES'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pDropAllowed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;'Y'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pConnectionname&nbsp;&nbsp;=>&nbsp;'MSTEST'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pTablename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;'Northwind.dbo.Employees'<br />
+&nbsp;&nbsp;);<br />
+<br />
+&nbsp;&nbsp;DBMS_OUTPUT.PUT_LINE('Return&nbsp;value&nbsp;=&nbsp;'&nbsp;||&nbsp;r);<br />
+END;
+</div>
+<br />
+&bull;&nbsp;pOutputTableName: Choose a name (format: schema.tablename) to specify the table to be created<br />
+&bull;&nbsp;pDropAllowed: 'Y' to allow outputtable to be overwritten. Default is No<br />
+&bull;&nbsp;pConnectionname: Use the name defined in the previous step<br />
+&bull;&nbsp;pTablename: Name of the source table at the remote database<br />
+&bull;&nbsp;pSQL: Optional value. Instead of the tablename this query is used to retreive values from the remote database.
+<br /><br />
+<b>Note:</b> You can query table SYS.UTL_ETO_DESCRIBE$ after running this function. It lists the output
+from describing the table at the remote database.
+<br /><br />
+<b>Create multiple tables</b><br />
+It is possible to create external table definitions for more than one table at once. For instance
+for all tables in the remote database(schema).<br />
+<br />
+<div class="codeblock">
+DECLARE<br />
+&nbsp;&nbsp;r&nbsp;&nbsp;&nbsp;number;<br />
+BEGIN<br />
+&nbsp;&nbsp;DBMS_OUTPUT.enable(20000);<br />
+<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('MSTEST',&nbsp;SYS.UTL_ETO.Eto_par_list_table_query,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'SELECT&nbsp;''Northwind.dbo.''&nbsp;+&nbsp;name&nbsp;+&nbsp;''''&nbsp;as&nbsp;name&nbsp;FROM&nbsp;Northwind.sys.all_objects<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;type&nbsp;in&nbsp;(''U'',&nbsp;''V'')&nbsp;and&nbsp;is_ms_shipped&nbsp;=&nbsp;0');<br />
+<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Create_Tables_From_DB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;pOutputSchema&nbsp;&nbsp;&nbsp;=>&nbsp;'SCHEMA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pOutputPrefix&nbsp;&nbsp;&nbsp;=>&nbsp;'MS_'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pConnectionname&nbsp;=>&nbsp;'MSTEST'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pDropAllowed&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;'Y'<br />
+&nbsp;&nbsp;);<br />
+<br />
+&nbsp;&nbsp;DBMS_OUTPUT.PUT_LINE('Return&nbsp;value&nbsp;=&nbsp;'&nbsp;||&nbsp;r);<br />
+END;
+</div>
+<br />
+&bull;&nbsp;Parameter Eto_par_list_table_query: With this parameter the query can be set that lists all
+tables and views that you are interested in. The example above results in all tables and views
+from the MS SQL server database: Northwind.<br />
+<br />
+For MySQL you could use this (double quoted) string:<br />
+'select concat(table_schema, ''.'', table_name) as name from information_schema.TABLES where table_schema=''databasename'''<br />
+<br />
+For SQLite you could use this (double quoted) string:<br />
+'SELECT name FROM sqlite_master WHERE type=''table'' and name not like ''sqlite_stat%'''<br />
+<br />
+For Access and Excel/OpenOffice simply use '*'. In this case ETO tries to create one table for each worksheet in
+the document.<br />
+<br />
+For Presto you can use 'SHOW TABLES'<br />
+<br />
+&bull;&nbsp;pOutputSchema: Name of the schema where output tables should be created<br />
+&bull;&nbsp;pOutputPrefix: Optional prefix to be prepended to the tablename. If the resulting tablename is
+too long, the name is cut of at 30 characters
+<br /><br />
+<b>Note:</b> You can query table SYS.UTL_ETO_LIST_TABLES$ after running this function. It lists all the
+tables at the remote database that result from the 'Eto_par_list_table_query'.
+<br /><br />
+<a name="excel"><b>Excel example</b><br />
+This is a complete example to create one or more tables from a spreadsheet file. One worksheet equals one table.<br />
+<br />
+<div class="codeblock">
+DECLARE<br />
+&nbsp;&nbsp;r&nbsp;&nbsp;&nbsp;NUMBER;<br />
+BEGIN<br />
+&nbsp;&nbsp;DBMS_OUTPUT.enable(20000);<br />
+<br />
+&nbsp;&nbsp;--&nbsp;Setup&nbsp;connection&nbsp;--<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Create_Database_Connection('XLS');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_executable,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'EasyOTOra.sh');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_bin_dir,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user_dir_eto_bin');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_data_dir,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user_dir_eto_data');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_file_dir,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user_dir_eto_files');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_db_user,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_db_pwd,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_def_cacherows,&nbsp;&nbsp;&nbsp;&nbsp;'1');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_default_charset,&nbsp;&nbsp;'AL32UTF8');<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_list_table_query,&nbsp;'*');<br />
+<br />
+<br />
+&nbsp;&nbsp;--&nbsp;Create&nbsp;one&nbsp;table&nbsp;--<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_db_name,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'test.xls');<br />
+<br />
+&nbsp;&nbsp;v_Return&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_CREATE_TABLE(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;pOutputtablename&nbsp;&nbsp;=>&nbsp;'SCHEMA.XLS_TESTSHEET'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pDropAllowed&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;'Y'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pConnectionname&nbsp;=>&nbsp;'XLS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pTablename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;'Sheet1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pOtherParameters=>&nbsp;'offset_row&nbsp;&nbsp;=&nbsp;1;offset_col&nbsp;&nbsp;=&nbsp;1;skip_rows&nbsp;&nbsp;&nbsp;=&nbsp;2;'<br />
+&nbsp;&nbsp;);<br />
+<br />
+<br />
+&nbsp;&nbsp;--&nbsp;Create&nbsp;multiple&nbsp;tables&nbsp;--<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Set_Parameter('XLS',&nbsp;SYS.UTL_ETO.Eto_par_db_name,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'test.xls');<br />
+<br />
+&nbsp;&nbsp;r&nbsp;:=&nbsp;SYS.UTL_ETO.ETO_Create_Tables_From_DB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;pOutputSchema&nbsp;&nbsp;&nbsp;=>&nbsp;'SCHEMA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pOutputPrefix&nbsp;&nbsp;&nbsp;=>&nbsp;'XLS_'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pConnectionname&nbsp;=>&nbsp;'XLS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pDropAllowed&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;'Y'<br />
+&nbsp;&nbsp;);<br />
+<br />
+&nbsp;&nbsp;DBMS_OUTPUT.PUT_LINE('Number of tables created&nbsp;=&nbsp;'&nbsp;||&nbsp;r);<br />
+END;
+</div>
+<br />
+&bull;&nbsp;pOtherParameters: Several options can be passed to the ETO executable. Format is a semicolon
+delimited list of 'parameter = value'. These options are simply added to the generated ini file.
+More options are available, see the package header of SYS.UTL_ETO<br />
+In the example above these options tell ETO to start looking for column labels at cel B2 and
+look for data at cel B4<br />
+&bull;&nbsp;Eto_par_file_dir: the Oracle directory name, pointing to the location where spreadsheet files
+are located. If this parameter is null then the value of Eto_par_data_dir is used<br />
+<br />
+<b>Note:</b> If the spreadsheet contents are too 'unstructured' to use, you can pass 'pOtherParameters' : 'raw_data = 1;max_columns = 5;'.
+This instructs ETO to just read all data in the spreadsheet as text, columns A to E.
+<br /><hr />
+Back to <a href="eto-index.html">ETO Home</a>.
+<br /><br />Copyright 2011-2014 Ivo Herweijer
+  </div>
+
+  </div>
+
+  </div>
+
+  </div> <!-- container_24 -->
+
+</body>
+</html>
