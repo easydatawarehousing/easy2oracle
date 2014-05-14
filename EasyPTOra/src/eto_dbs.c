@@ -188,7 +188,7 @@ bool eto_open_database(ETO_PARAMS* params)
 	}
 
 	// Initialize prestoclient
-	pc = prestoclient_init(params->dbs, params->prt > 0 ? (unsigned int*)&params->prt : NULL, params->cat, params->usr, params->pwd);
+	pc = prestoclient_init(params->dbs, params->prt > 0 ? (unsigned int*)&params->prt : NULL, params->cat, params->usr, params->pwd, NULL /* timezone */, NULL /* language */);
 
 	if (!pc)
 	{

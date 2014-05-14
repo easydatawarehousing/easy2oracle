@@ -19,7 +19,6 @@ include_directories ("${CMAKE_SOURCE_DIR}/ETO_Common/include")
 set(SRC
     prestoclient/prestoclientutils.c
     prestoclient/prestoclientjsonstream.c
-    prestoclient/prestoclientcurl.c
     prestoclient/prestoclient.c
     src/eto_dbs.c
     ${CMAKE_SOURCE_DIR}/ETO_Common/src/dictionary.c

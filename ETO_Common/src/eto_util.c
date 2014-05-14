@@ -253,7 +253,7 @@ bool eto_convert_separators(char *field_separator, char *line_separator, const c
 bool eto_create_query(char **sql, const char *in_statement, const char *in_tablename, const bool in_describe, const bool in_show_allowed)
 {
 	unsigned int i;
-	char check[8];
+	char check[8], *tempsql;
 	memset(check, 0, 8);
 
 	// Check/copy/create sql
@@ -297,9 +297,14 @@ bool eto_create_query(char **sql, const char *in_statement, const char *in_table
 	// Add describe clause if necessary
 	if (in_describe)
 	{
-		memcpy (*sql + 15 * sizeof(char), *sql, strlen(*sql) + 1);	// +1 to include null terminator
-		strncpy(*sql, "SELECT * FROM (", 15 * sizeof(char) );
-		strcat (*sql, ") WHERE 1=0");
+		tempsql = (char*)calloc(strlen(*sql) + 1, sizeof(char) );
+
+		if (!tempsql)
+			exit(1);		strcpy(tempsql, *sql);
+		strcpy(*sql, "SELECT * FROM (");
+		strcat(*sql, tempsql);
+		strcat(*sql, ") WHERE 1=0");
+		free(tempsql);
 	}
 
 	return true;

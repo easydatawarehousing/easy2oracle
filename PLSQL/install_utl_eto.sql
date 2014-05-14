@@ -25,7 +25,6 @@ CREATE TABLE SYS.utl_eto$
 );
 /
 
-
 CREATE OR REPLACE PACKAGE SYS.UTL_ETO
 AS
 /*****************************************************************************
@@ -52,6 +51,7 @@ AS
  * 1.0.0   15-05-2011  Ivo Herweijer   1st release version
  * 1.1.0   15-06-2012  Ivo Herweijer   2nd release. Added MS-Access support
  * 2.0.0   15-02-2014  Ivo Herweijer   3rd release. Added Presto support
+ * 2.0.1   15-05-2014  Ivo Herweijer   Add Presto v0.66 types: date/time(stamp)
  ****************************************************************************/
 
 -- Constants for Describe table --
@@ -197,6 +197,13 @@ Eto_PRESTO_VARCHAR           CONSTANT BINARY_INTEGER := 60001;
 Eto_PRESTO_BIGINT            CONSTANT BINARY_INTEGER := 60002;
 Eto_PRESTO_BOOLEAN           CONSTANT BINARY_INTEGER := 60003;
 Eto_PRESTO_DOUBLE            CONSTANT BINARY_INTEGER := 60004;
+Eto_PRESTO_DATE              CONSTANT BINARY_INTEGER := 60005;
+Eto_PRESTO_TIME              CONSTANT BINARY_INTEGER := 60006;
+Eto_PRESTO_TIME_TZ           CONSTANT BINARY_INTEGER := 60007;
+Eto_PRESTO_TIMESTAMP         CONSTANT BINARY_INTEGER := 60008;
+Eto_PRESTO_TIMESTAMP_TZ      CONSTANT BINARY_INTEGER := 60009;
+Eto_PRESTO_INTERVAL_YM       CONSTANT BINARY_INTEGER := 60010;
+Eto_PRESTO_INTERVAL_DS       CONSTANT BINARY_INTEGER := 60011;
 
 -- Functions --
 
@@ -386,7 +393,6 @@ END;
 END UTL_ETO;
 /
 
-
 CREATE OR REPLACE PACKAGE BODY SYS.UTL_ETO
 AS
 /*****************************************************************************
@@ -464,7 +470,7 @@ TYPE type_Describe IS RECORD
 ( T_Describe_Id     Number
 , T_Name            Varchar2(128)
 , T_Datatype        Number
-, T_Datatype_Descr  Varchar2(20)
+, T_Datatype_Descr  Varchar2(50)
 , T_Maxlength       Number
 , T_Scale           Number
 , T_Precision       Number
@@ -751,7 +757,7 @@ BEGIN
   utl_file.put_line(f, 'lineseparator  = \n;'  );
   END IF;
 
-  IF pTableName is not null THEN
+  IF pSQL is null AND pTableName is not null THEN
   utl_file.put_line(f, 'table          = ' || pTableName || ';');
   END IF;
 
@@ -783,7 +789,7 @@ BEGIN
   vDDL := vDDL || '(  t_describe_id    number' || chr(10);
   vDDL := vDDL || ',  t_name           varchar2(128)' || chr(10);
   vDDL := vDDL || ',  t_datatype       number' || chr(10);
-  vDDL := vDDL || ',  t_datatype_descr varchar2(20)' || chr(10);
+  vDDL := vDDL || ',  t_datatype_descr varchar2(50)' || chr(10);
   vDDL := vDDL || ',  t_maxlength      number' || chr(10);
   vDDL := vDDL || ',  t_scale          number' || chr(10);
   vDDL := vDDL || ',  t_precision      number' || chr(10);
@@ -804,7 +810,7 @@ BEGIN
   vDDL := vDDL || '          (  t_describe_id                   unsigned integer external (12)' || chr(10);
   vDDL := vDDL || '          ,  t_name                          char(128)' || chr(10);
   vDDL := vDDL || '          ,  t_datatype                      unsigned integer external (8)' || chr(10);
-  vDDL := vDDL || '          ,  t_datatype_descr                char(20)' || chr(10);
+  vDDL := vDDL || '          ,  t_datatype_descr                char(50)' || chr(10);
   vDDL := vDDL || '          ,  t_maxlength                     unsigned integer external (8)' || chr(10);
   vDDL := vDDL || '          ,  t_scale                         unsigned integer external (8)' || chr(10);
   vDDL := vDDL || '          ,  t_precision                     unsigned integer external (8)' || chr(10);
@@ -995,9 +1001,13 @@ BEGIN
   -- Check content --
   FOR i IN gDesc.FIRST .. gDesc.LAST LOOP
     IF gDesc.Exists(i) THEN
-      -- Cannot start with a digit --
+      -- Cannot start with a digit or _ --
       IF substr(gDesc(i).T_Name, 1, 1) between '0' and '9' THEN
         gDesc(i).T_Name := 'c_' || gDesc(i).T_Name;
+      END IF;
+
+      IF substr(gDesc(i).T_Name, 1, 1) = '_' THEN
+        gDesc(i).T_Name := 'c' || gDesc(i).T_Name;
       END IF;
 
       -- Replace illegal characters with underscores --
@@ -1175,6 +1185,13 @@ BEGIN
     WHEN Eto_PRESTO_BIGINT      THEN vOutType := 'number';
     WHEN Eto_PRESTO_BOOLEAN     THEN vOutType := 'number';
     WHEN Eto_PRESTO_DOUBLE      THEN vOutType := 'number';
+    WHEN Eto_PRESTO_DATE        THEN vOutType := 'date';
+    WHEN Eto_PRESTO_TIME        THEN vOutType := 'timestamp';
+    WHEN Eto_PRESTO_TIME_TZ     THEN vOutType := 'timestamp with time zone';
+    WHEN Eto_PRESTO_TIMESTAMP   THEN vOutType := 'timestamp';
+    WHEN Eto_PRESTO_TIMESTAMP_TZ THEN vOutType:= 'timestamp with time zone';
+    WHEN Eto_PRESTO_INTERVAL_YM THEN vOutType := 'interval year to month';
+    WHEN Eto_PRESTO_INTERVAL_DS THEN vOutType := 'interval day to second';
 
                                 ELSE vOutType := 'varchar2(4000)';
   END CASE;
@@ -1191,7 +1208,7 @@ FUNCTION ETO_Source_Type( p_Type IN pls_integer, p_Length IN pls_integer, p_Scal
 RETURN varchar2
 AS
   vRewrite    boolean;
-  vOutType    varchar2(60);
+  vOutType    varchar2(100);
   vCharLength pls_integer;
 BEGIN
 
@@ -1319,6 +1336,13 @@ BEGIN
       WHEN Eto_PRESTO_BIGINT      THEN vOutType := 'unsigned integer external(20)';
       WHEN Eto_PRESTO_BOOLEAN     THEN vOutType := 'unsigned integer external(10)';
       WHEN Eto_PRESTO_DOUBLE      THEN vOutType := 'float external(25)';
+      WHEN Eto_PRESTO_DATE        THEN vOutType := 'char(100) date_format DATE mask "yyyy-mm-dd"';
+      WHEN Eto_PRESTO_TIME        THEN vOutType := 'char(100) date_format TIMESTAMP mask "hh24:mi:ss.ff6"';
+      WHEN Eto_PRESTO_TIME_TZ     THEN vOutType := 'char(100) date_format TIMESTAMP WITH TIME ZONE mask "hh24:mi:ss.ff6 tzr"';
+      WHEN Eto_PRESTO_TIMESTAMP   THEN vOutType := 'char(100) date_format TIMESTAMP mask "yyyy-mm-dd hh24:mi:ss.ff6"';
+      WHEN Eto_PRESTO_TIMESTAMP_TZ THEN vOutType:= 'char(100) date_format TIMESTAMP WITH TIME ZONE mask "yyyy-mm-dd hh24:mi:ss.ff6 tzr"';
+      WHEN Eto_PRESTO_INTERVAL_YM THEN vOutType := 'char(100) date_format INTERVAL YEAR TO MONTH';
+      WHEN Eto_PRESTO_INTERVAL_DS THEN vOutType := 'char(100) date_format INTERVAL DAY TO SECOND';
 
                                   ELSE vOutType := 'char(4000)';
     END CASE;

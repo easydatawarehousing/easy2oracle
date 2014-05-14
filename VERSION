@@ -1,6 +1,11 @@
 Easy to Oracle - Free open source data integration
 ==================================================
 
+Version 2.0.1 May 15, 2014
+--------------------------
++ Added support for Presto V0.66 datatypes (date/time/timestamp/interval). Note
+  that a Presto time is mapped to an Oracle timestamp.
+
 Version 2.0.0 Februari 15, 2014
 -------------------------------
 + Added support for Presto (Hadoop) databases

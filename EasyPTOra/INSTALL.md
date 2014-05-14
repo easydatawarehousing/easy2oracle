@@ -30,7 +30,7 @@ version, RedHat provides the devtoolset. In this example code the CentOS version
 	# Now you can build with
 	# make
 
-On RHEL 7.0 Beta there are no such problems. EasySTOra builds out-of-the-box.
+On RHEL 7.0 (Beta) there are no such problems. EasyPTOra builds out-of-the-box.
 
 *Ubuntu:*  
 
