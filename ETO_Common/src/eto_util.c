@@ -34,7 +34,8 @@ extern int __cdecl tolower(_In_ int _C);
 ETO_PARAMS* eto_new_ini_params(const char* ini_file_name)
 {
 	ETO_PARAMS* params;
-	unsigned int i;
+	unsigned int i, j;
+	bool copy_port = true;
 
 	if (!ini_file_name)
 	{
@@ -81,10 +82,26 @@ ETO_PARAMS* eto_new_ini_params(const char* ini_file_name)
 		// Check if tcp port is included in database string
 		for (i = 0; i < strlen(params->dbs); i++)
 		{
+			// Look for a colon
 			if (strncmp(params->dbs + i, ":", 1) == 0)
 			{
-				params->prt = atoi(params->dbs + i + 1);
-				params->dbs[i] = 0;	// Modifying an iniparser string here !
+				// Check that the portnumber is not followed by a string
+				// for instance an Oracle servicename
+				for (j = i + 1; j < strlen(params->dbs); j++)
+				{
+					if ( ! (strncmp(params->dbs + j, "0", 1) >= 0 && strncmp(params->dbs + j, "9", 1) <= 0) )
+					{
+						copy_port = false;
+						break;
+					}
+				}
+
+				if (copy_port)
+				{
+					params->prt = atoi(params->dbs + i + 1);
+					params->dbs[i] = 0;	// Modifying an iniparser string here !
+				}
+
 				break;
 			}
 		}
@@ -300,7 +317,9 @@ bool eto_create_query(char **sql, const char *in_statement, const char *in_table
 		tempsql = (char*)calloc(strlen(*sql) + 1, sizeof(char) );
 
 		if (!tempsql)
-			exit(1);		strcpy(tempsql, *sql);
+			exit(1);
+
+		strcpy(tempsql, *sql);
 		strcpy(*sql, "SELECT * FROM (");
 		strcat(*sql, tempsql);
 		strcat(*sql, ") WHERE 1=0");

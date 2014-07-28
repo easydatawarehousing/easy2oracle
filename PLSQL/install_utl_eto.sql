@@ -48,10 +48,11 @@ AS
  *
  * VERSION DATE        AUTHOR(S)       DESCRIPTION
  * ------- ----------- --------------- ------------------------------------
- * 1.0.0   15-05-2011  Ivo Herweijer   1st release version
- * 1.1.0   15-06-2012  Ivo Herweijer   2nd release. Added MS-Access support
- * 2.0.0   15-02-2014  Ivo Herweijer   3rd release. Added Presto support
- * 2.0.1   15-05-2014  Ivo Herweijer   Add Presto v0.66 types: date/time(stamp)
+ * 1.0.0   2011-05-15  Ivo Herweijer   1st release version
+ * 1.1.0   2012-06-15  Ivo Herweijer   2nd release. Added MS-Access support
+ * 2.0.0   2014-02-15  Ivo Herweijer   3rd release. Added Presto support
+ * 2.0.1   2014-05-15  Ivo Herweijer   Add Presto v0.66 types: date/time(stamp)
+ * 2.1.0   2014-07-25  Ivo Herweijer   Add Oracle support
  ****************************************************************************/
 
 -- Constants for Describe table --
@@ -80,7 +81,7 @@ Eto_par_enable_logfiles      CONSTANT BINARY_INTEGER := 1010;   -- Enable logfil
 Eto_par_enable_badfiles      CONSTANT BINARY_INTEGER := 1011;   -- Enable badfile: Y = enable, all other values = disable
 Eto_par_do_not_quote_names   CONSTANT BINARY_INTEGER := 1012;   -- Skip quoting of the source tablename if it containes spaces. Y = skip quotes, all other values = quote
 Eto_par_default_charset      CONSTANT BINARY_INTEGER := 1013;   -- Name of default characterset. Do not set this parameter to use the database default. Can be overwritten when creating tables
-                                                                -- For MS-SQL server and SQLite 'WE8ISO8859P15' works well, for spreadsheets and Presto use 'AL32UTF8',
+                                                                -- For MS-SQL server and SQLite 'WE8ISO8859P15' works well, for spreadsheets, Presto and Oracle use 'AL32UTF8',
                                                                 -- for MS-Access use 'WE8ISO8859P1' or 'WE8MSWIN1252'
 Eto_par_readsize             CONSTANT BINARY_INTEGER := 1014;   -- Optional: set the value of the external table READSIZE parameter. This is necessary on Windows platform
 
@@ -92,6 +93,7 @@ Eto_bin_easyoto              CONSTANT VARCHAR2(30)  := 'EasyOTOra';
 Eto_bin_easysto              CONSTANT VARCHAR2(30)  := 'EasySTOra';
 Eto_bin_easyato              CONSTANT VARCHAR2(30)  := 'EasyATOra';
 Eto_bin_easypto              CONSTANT VARCHAR2(30)  := 'EasyPTOra';
+Eto_bin_easynto              CONSTANT VARCHAR2(30)  := 'EasyNTOra'; -- Oracle2Oracle
 
 -- Constants for type conversions - Tabular Data Protocol --
 Eto_TDP_ILLEGAL              CONSTANT BINARY_INTEGER :=  9999;
@@ -204,6 +206,19 @@ Eto_PRESTO_TIMESTAMP         CONSTANT BINARY_INTEGER := 60008;
 Eto_PRESTO_TIMESTAMP_TZ      CONSTANT BINARY_INTEGER := 60009;
 Eto_PRESTO_INTERVAL_YM       CONSTANT BINARY_INTEGER := 60010;
 Eto_PRESTO_INTERVAL_DS       CONSTANT BINARY_INTEGER := 60011;
+
+-- Constants for type conversions - Oracle --
+Eto_ORACLE_RAW               CONSTANT BINARY_INTEGER := 70095;
+Eto_ORACLE_NUMBER            CONSTANT BINARY_INTEGER := 70002;
+Eto_ORACLE_VARCHAR2          CONSTANT BINARY_INTEGER := 70009;
+Eto_ORACLE_DATE              CONSTANT BINARY_INTEGER := 70012;
+Eto_ORACLE_TIME              CONSTANT BINARY_INTEGER := 70185;
+Eto_ORACLE_TIME_TZ           CONSTANT BINARY_INTEGER := 70186;
+Eto_ORACLE_TIMESTAMP         CONSTANT BINARY_INTEGER := 70187;
+Eto_ORACLE_TIMESTAMP_TZ      CONSTANT BINARY_INTEGER := 70188;
+Eto_ORACLE_TIMESTAMP_LTZ     CONSTANT BINARY_INTEGER := 70232;
+Eto_ORACLE_INTERVAL_YM       CONSTANT BINARY_INTEGER := 70189;
+Eto_ORACLE_INTERVAL_DS       CONSTANT BINARY_INTEGER := 70190;
 
 -- Functions --
 
@@ -583,7 +598,7 @@ BEGIN
   END IF;
 
   -- Check value for Eto_par_executable. This enables us to use this name to determine which remote platform we are dealing with --
-  IF pName = Eto_par_executable AND substr(pValue1, 1, 9) not in (Eto_bin_easytto, Eto_bin_easymto, Eto_bin_easyoto, Eto_bin_easysto, Eto_bin_easyato, Eto_bin_easypto) THEN
+  IF pName = Eto_par_executable AND substr(pValue1, 1, 9) not in (Eto_bin_easytto, Eto_bin_easymto, Eto_bin_easyoto, Eto_bin_easysto, Eto_bin_easyato, Eto_bin_easypto, Eto_bin_easynto) THEN
     Raise eValInvalid1;
   END IF;
 
@@ -954,7 +969,7 @@ BEGIN
 
   -- Are there any conversions necessary ? -- XLS types can not be rewritten (since sql is the worksheetname --
   FOR i IN gDesc.FIRST .. gDesc.LAST LOOP
-    IF gDesc(i).T_Datatype in (Eto_TDP_DATETIME, Eto_TDP_DATETIME4, Eto_TDP_BINARY, Eto_TDP_VARBINARY, Eto_TDP_LONGBINARY, Eto_TDP_IMAGE, Eto_TDP_BLOB, Eto_MYSQL_TINY_BLOB, Eto_MYSQL_MEDIUM_BLOB, Eto_MYSQL_LONG_BLOB, Eto_MYSQL_BLOB, Eto_SQLITE_BLOB) THEN
+    IF gDesc(i).T_Datatype in (Eto_TDP_DATETIME, Eto_TDP_DATETIME4, Eto_TDP_BINARY, Eto_TDP_VARBINARY, Eto_TDP_LONGBINARY, Eto_TDP_IMAGE, Eto_TDP_BLOB, Eto_MYSQL_TINY_BLOB, Eto_MYSQL_MEDIUM_BLOB, Eto_MYSQL_LONG_BLOB, Eto_MYSQL_BLOB, Eto_SQLITE_BLOB, Eto_ORACLE_RAW) THEN
       vRewrite := true;
       exit;
     END IF;
@@ -967,7 +982,7 @@ BEGIN
     FOR i IN gDesc.FIRST .. gDesc.LAST LOOP
       IF gDesc(i).T_Datatype in (Eto_TDP_DATETIME, Eto_TDP_DATETIME4) THEN
         vSQL := vSQL || 'Cast(' || gDesc(i).T_Name || ' as datetime2(0)) as ' || gDesc(i).T_Name || ',' || chr(10);
-      ELSIF gDesc(i).T_Datatype in (Eto_TDP_BINARY, Eto_TDP_VARBINARY, Eto_TDP_LONGBINARY, Eto_TDP_IMAGE, Eto_TDP_BLOB, Eto_MYSQL_TINY_BLOB, Eto_MYSQL_MEDIUM_BLOB, Eto_MYSQL_LONG_BLOB, Eto_MYSQL_BLOB, Eto_SQLITE_BLOB) THEN
+      ELSIF gDesc(i).T_Datatype in (Eto_TDP_BINARY, Eto_TDP_VARBINARY, Eto_TDP_LONGBINARY, Eto_TDP_IMAGE, Eto_TDP_BLOB, Eto_MYSQL_TINY_BLOB, Eto_MYSQL_MEDIUM_BLOB, Eto_MYSQL_LONG_BLOB, Eto_MYSQL_BLOB, Eto_SQLITE_BLOB, Eto_ORACLE_RAW) THEN
         gDesc.Delete(i); -- Remove binary fields from nested table --
       ELSE
         vSQL := vSQL || gDesc(i).T_Name || ',' || chr(10);
@@ -1193,6 +1208,18 @@ BEGIN
     WHEN Eto_PRESTO_INTERVAL_YM THEN vOutType := 'interval year to month';
     WHEN Eto_PRESTO_INTERVAL_DS THEN vOutType := 'interval day to second';
 
+    WHEN Eto_ORACLE_RAW         THEN vOutType := 'varchar2(' || vCharLength || ')';
+    WHEN Eto_ORACLE_NUMBER      THEN vOutType := 'number';
+    WHEN Eto_ORACLE_VARCHAR2    THEN vOutType := 'varchar2(' || vCharLength || ')';
+    WHEN Eto_ORACLE_DATE        THEN vOutType := 'date';
+    WHEN Eto_ORACLE_TIME        THEN vOutType := 'timestamp';
+    WHEN Eto_ORACLE_TIME_TZ     THEN vOutType := 'timestamp with time zone';
+    WHEN Eto_ORACLE_TIMESTAMP   THEN vOutType := 'timestamp';
+    WHEN Eto_ORACLE_TIMESTAMP_TZ THEN vOutType:= 'timestamp with time zone';
+    WHEN Eto_ORACLE_TIMESTAMP_LTZ THEN vOutType:='timestamp with local time zone';
+    WHEN Eto_ORACLE_INTERVAL_YM THEN vOutType := 'interval year to month';
+    WHEN Eto_ORACLE_INTERVAL_DS THEN vOutType := 'interval day to second';
+
                                 ELSE vOutType := 'varchar2(4000)';
   END CASE;
 
@@ -1343,6 +1370,18 @@ BEGIN
       WHEN Eto_PRESTO_TIMESTAMP_TZ THEN vOutType:= 'char(100) date_format TIMESTAMP WITH TIME ZONE mask "yyyy-mm-dd hh24:mi:ss.ff6 tzr"';
       WHEN Eto_PRESTO_INTERVAL_YM THEN vOutType := 'char(100) date_format INTERVAL YEAR TO MONTH';
       WHEN Eto_PRESTO_INTERVAL_DS THEN vOutType := 'char(100) date_format INTERVAL DAY TO SECOND';
+
+      WHEN Eto_ORACLE_RAW         THEN vOutType := 'char(2000)';
+      WHEN Eto_ORACLE_NUMBER      THEN vOutType := 'unsigned integer external(20)';
+      WHEN Eto_ORACLE_VARCHAR2    THEN vOutType := 'char(' || vCharLength || ')';
+      WHEN Eto_ORACLE_DATE        THEN vOutType := 'char(100) date_format DATE mask "yyyy-mm-dd hh24:mi:ss"';
+      WHEN Eto_ORACLE_TIME        THEN vOutType := 'char(100) date_format TIMESTAMP mask "hh24:mi:ss.ff6"';
+      WHEN Eto_ORACLE_TIME_TZ     THEN vOutType := 'char(100) date_format TIMESTAMP WITH TIME ZONE mask "hh24:mi:ss.ff6 tzr"';
+      WHEN Eto_ORACLE_TIMESTAMP   THEN vOutType := 'char(100) date_format TIMESTAMP mask "yyyy-mm-dd hh24:mi:ss.ff6"';
+      WHEN Eto_ORACLE_TIMESTAMP_TZ THEN vOutType:= 'char(100) date_format TIMESTAMP WITH TIME ZONE mask "yyyy-mm-dd hh24:mi:ss.ff6 tzr"';
+      WHEN Eto_ORACLE_TIMESTAMP_LTZ THEN vOutType:='char(100) date_format TIMESTAMP WITH TIME ZONE mask "yyyy-mm-dd hh24:mi:ss.ff6 tzr"';
+      WHEN Eto_ORACLE_INTERVAL_YM THEN vOutType := 'char(100) date_format INTERVAL YEAR TO MONTH';
+      WHEN Eto_ORACLE_INTERVAL_DS THEN vOutType := 'char(100) date_format INTERVAL DAY TO SECOND';
 
                                   ELSE vOutType := 'char(4000)';
     END CASE;

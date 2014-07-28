@@ -272,7 +272,7 @@ bool eto_open_database(ETO_PARAMS* params)
 	}
 
 	// Check/copy/create sql
-	if (!eto_create_query(&qdata->sql, params->sql, params->tbl, false /* is_describe: always false for freetdp */, true) )
+	if (!eto_create_query(&qdata->sql, params->sql, params->tbl, false /* is_describe: always false for MySQL */, true) )
 	{
 		// Log messages added by eto_create_query
 		return false;
@@ -283,20 +283,20 @@ bool eto_open_database(ETO_PARAMS* params)
 
 	if (!conn)
 	{
-		eto_log_add_entry_s("ETO-10202 Open database: Connection allocation failed. MySQL client version: ", mysql_get_client_info() );
+		eto_log_add_entry_s("ETO-10202 Open database: Connection allocation failed. MySQL client version:", mysql_get_client_info() );
 		return false;
 	}
 
 	// Login to database
 	if (mysql_real_connect(conn, params->dbs, params->usr, params->pwd, NULL, params->prt, NULL, 0) == NULL)
 	{
-		eto_log_add_entry_s("ETO-10206 Open database: Create connection failed: ", mysql_error(conn));
+		eto_log_add_entry_s("ETO-10206 Open database: Create connection failed:", mysql_error(conn));
 		return false;
 	}
 
 	if (mysql_set_character_set(conn, "utf8"))
 	{
-		eto_log_add_entry_s("ETO-10207 Open database: Could not set UTF-8 character set. Default is: ", mysql_character_set_name(conn) );
+		eto_log_add_entry_s("ETO-10207 Open database: Could not set UTF-8 character set. Default is:", mysql_character_set_name(conn) );
 	}
 
 	// Execute query

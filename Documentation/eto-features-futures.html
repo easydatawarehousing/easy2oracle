@@ -56,6 +56,7 @@ Easy To Oracle (ETO) currently handles these types of datasources:<br />
 &bull;&nbsp;SQLite 3.x<br />
 &bull;&nbsp;Microsoft Access 97 - 2003 (discontinued in ETO 2.0 version)<br />
 &bull;&nbsp;Presto (Hadoop)<br />
+&bull;&nbsp;Oracle<br />
 <br />
 &bull;&nbsp;All datatypes are handled except: (var)binary, lob's, image. Fields with these datatypes are automatically filtered out by PL/SQL package.<br />
 Other fieldtypes are converted to corresponding Oracle types. Mostly to varchar2, number and date. User- defined conversions are possible, as long as they are valid for external tables. Character fields with content longer than 4,000 bytes are cut of at that length (extended varchar length of Oracle 12c is partially supported). Character set conversions are carried out by Oracle.<br />
